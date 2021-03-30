@@ -1,0 +1,39 @@
+# docker-compose.yml
+
+version: "3.7"
+services:
+    postgres:
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: blog
+        ports:
+            - "5432:5432"
+        volumes:
+            - database:/var/lib/postgresql/data
+            - ./database/create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+            - ./database/fill_table.sql:/docker-entrypoint-initdb.d/fill_table.sql
+
+    blog:
+        build:
+            context: .
+        environment:
+            DB_SCHEMA: blog
+            DB_USER: postgres
+            DB_PASSWORD: postgres
+            DB_HOST: localhost
+        depends_on:
+            - postgres
+        ports:
+            - "3000:3000"
+        volumes:
+            - .:/app
+
+volumes:
+    database:
+
+networks:
+    default:
+        external:
+            name: rest-api_default

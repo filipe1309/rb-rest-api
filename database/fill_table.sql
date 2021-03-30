@@ -1,0 +1,6 @@
+INSERT INTO blog.post (title, content)
+values ('REST API: Métodos', '...')
+INSERT INTO blog.post (title, content)
+values ('REST API: Métodos', '...')
+INSERT INTO blog.post (title, content)
+values ('REST API: Documentação', '...')

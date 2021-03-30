@@ -1,0 +1,24 @@
+{
+    "name": "rest-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "pm2": "pm2 start processes.json --no-daemon",
+        "start": "node ./server/server.js",
+        "test": "jest --env node",
+        "migrate": "node ./server/data/migrate.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@pm2/pm2-version-check": "^1.0.3",
+        "axios": "^0.21.1",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "jest": "^26.6.3",
+        "pg-promise": "^10.9.5",
+        "pm2": "^4.5.5"
+    }
+}
