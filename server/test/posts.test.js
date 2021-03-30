@@ -3,7 +3,9 @@ const crypto = require('crypto');
 const postsService = require('../service/postsService');
 
 const generate = () => crypto.randomBytes(20).toString('hex');
-const request = (url, method, data) => axios({ url, method, data });
+const request = (url, method, data) => axios({ url, method, data, validateStatus: false });
+
+// TODO empty test db before all
 
 test('Should get posts', async() => {
     // Given
@@ -24,7 +26,7 @@ test('Should get posts', async() => {
     await postsService.deletePost(post3.id);
 });
 
-test('Should save posts', async() => {
+test('Should save a post', async() => {
     // Given
     const data = { title: generate(), content: generate() };
 
@@ -40,7 +42,7 @@ test('Should save posts', async() => {
 });
 
 
-test('Should update posts', async() => {
+test('Should update a post', async() => {
     // Given
     const post = await postsService.savePost({ title: generate(), content: generate() });
     post.title = generate();
@@ -57,7 +59,18 @@ test('Should update posts', async() => {
     await postsService.deletePost(updatedPost.id);
 });
 
-test('Should delete posts', async() => {
+test('Should not update a post', async() => {
+    // Given
+    const post = { id: 1 };
+
+    // When
+    const response = await request(`http://localhost:3000/posts/${post.id}`, 'PUT', post);
+
+    // Then
+    expect(response.status).toBe(404);
+});
+
+test('Should delete a post', async() => {
     // Given
     const post = await postsService.savePost({ title: generate(), content: generate() });
 
