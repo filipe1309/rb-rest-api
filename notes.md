@@ -17,3 +17,11 @@ npm install --save pm2
 docker network create rest-api_default
 
 psql -U postgres
+
+-> docker-compose up -d
+
+docker exec -t rest-api_blog_1 npm test
+
+remove body-parser, express parser iths enought
+
+test.only
