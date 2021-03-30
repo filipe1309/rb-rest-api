@@ -7,17 +7,5 @@ router.get('/posts', async(req, res) => {
     // posts = { test: 2 };
     res.json(posts);
 });
-router.get('/posts/:id', async(req, res) => {
-
-});
-router.post('/posts', async(req, res) => {
-
-});
-router.put('/posts/:id', async(req, res) => {
-
-});
-router.delete('/posts/:id', async(req, res) => {
-
-});
 
 module.exports = router;
