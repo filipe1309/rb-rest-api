@@ -8,6 +8,10 @@ exports.getPost = (id) => {
     return db.oneOrNone('SELECT * from blog.post WHERE id = $1', [id]);
 };
 
+exports.getPostByTitle = (title) => {
+    return db.oneOrNone('SELECT * from blog.post WHERE title = $1', [title]);
+};
+
 exports.savePost = (post) => {
     return db.one('INSERT INTO blog.post (title, content) VALUES ($1, $2) returning *', [post.title, post.content]);
 };

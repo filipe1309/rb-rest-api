@@ -41,6 +41,20 @@ test('Should save a post', async() => {
     await postsService.deletePost(post.id);
 });
 
+test('Should not save a post', async() => {
+    // Given
+    const data = { title: generate(), content: generate() };
+
+    // When
+    const response1 = await request('http://localhost:3000/posts', 'POST', data);
+    const response2 = await request('http://localhost:3000/posts', 'POST', data);
+    const post = response1.data;
+
+    // Then
+    expect(response2.status).toBe(409);
+
+    await postsService.deletePost(post.id);
+});
 
 test('Should update a post', async() => {
     // Given
