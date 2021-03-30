@@ -8,4 +8,11 @@ router.get('/posts', async(req, res) => {
     res.json(posts);
 });
 
+router.post('/posts', async(req, res) => {
+    const post = req.body;
+    const newPost = await postsService.savePost(post);
+    res.json(newPost);
+});
+
+
 module.exports = router;
