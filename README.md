@@ -1,4 +1,4 @@
-# rb-rest-api-2"
+# rb-rest-api
 
 docker-compose up -d
 
