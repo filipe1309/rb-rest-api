@@ -1,3 +1,5 @@
+https://www.youtube.com/playlist?list=PLQCmSnNFVYnQ28Gd7SmWiM-dChqaWiy8i
+
 npm init -y
 
 npm i express body-parser pg-promise jest axios --save
@@ -25,3 +27,13 @@ docker exec -t rest-api_blog_1 npm test
 remove body-parser, express parser iths enought
 
 test.only
+
+https://semaphoreci.com/community/tutorials/dockerizing-a-node-js-web-application
+
+https://github.com/TomFern/dockerizing-nodejs
+
+https://github.com/rodrigobranas/youtube/tree/master/rest_api_2
+
+https://github.com/rodrigobranas/youtube/tree/master/rest_api_3
+
+https://github.com/rodrigobranas/youtube/tree/master/rest_api_4
