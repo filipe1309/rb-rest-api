@@ -14,7 +14,11 @@ router.post('/posts', async(req, res) => {
         const newPost = await postsService.savePost(post);
         res.status(201).json(newPost);
     } catch (e) {
-        res.status(409).send(e.message);
+        if (e.message === 'Post already exists') {
+            res.status(409).send(e.message);
+        } else {
+            res.status(500).send(e.message);
+        }
     }
 });
 
@@ -25,14 +29,26 @@ router.put('/posts/:id', async(req, res) => {
         await postsService.updatePost(req.params.id, post);
         res.status(204).end();
     } catch (e) {
-        res.status(404).send(e.message);
+        if (e.message === 'Post already exists') {
+            res.status(404).send(e.message);
+        } else {
+            res.status(500).send(e.message);
+        }
     }
 });
 
 
 router.delete('/posts/:id', async(req, res) => {
-    await postsService.deletePost(req.params.id);
-    res.status(204).end();
+    try {
+        await postsService.deletePost(req.params.id);
+        res.status(204).end();
+    } catch (e) {
+        if (e.message === 'Post already exists') {
+            res.status(404).send(e.message);
+        } else {
+            res.status(500).send(e.message);
+        }
+    }
 });
 
 module.exports = router;
