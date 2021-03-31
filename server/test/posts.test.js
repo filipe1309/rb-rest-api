@@ -1,6 +1,8 @@
 const axios = require('axios');
 const crypto = require('crypto');
 const postsService = require('../service/postsService');
+const httpStatusCodes = require('../route/httpStatusCodes');
+
 
 const generate = () => crypto.randomBytes(20).toString('hex');
 const request = (url, method, data) => axios({ url, method, data, validateStatus: false });
@@ -18,7 +20,7 @@ test('Should get posts', async() => {
     const posts = response.data;
 
     // Then
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(httpStatusCodes.OK);
     expect(posts).toHaveLength(3);
 
     await postsService.deletePost(post1.id);
@@ -35,7 +37,7 @@ test('Should save a post', async() => {
     const post = response.data;
 
     // Then
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(httpStatusCodes.CREATED);
     expect(post.title).toBe(data.title);
     expect(post.content).toBe(data.content);
     await postsService.deletePost(post.id);
@@ -51,7 +53,7 @@ test('Should not save a post', async() => {
     const post = response1.data;
 
     // Then
-    expect(response2.status).toBe(409);
+    expect(response2.status).toBe(httpStatusCodes.CONFLICT);
 
     await postsService.deletePost(post.id);
 });
@@ -67,7 +69,7 @@ test('Should update a post', async() => {
     const updatedPost = await postsService.getPost(post.id);
 
     // Then
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(httpStatusCodes.NO_CONTENT);
     expect(updatedPost.title).toBe(post.title);
     expect(updatedPost.content).toBe(post.content);
     await postsService.deletePost(updatedPost.id);
@@ -81,7 +83,7 @@ test('Should not update a post', async() => {
     const response = await request(`http://localhost:3000/posts/${post.id}`, 'PUT', post);
 
     // Then
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(httpStatusCodes.NOT_FOUND);
 });
 
 test('Should delete a post', async() => {
@@ -93,6 +95,6 @@ test('Should delete a post', async() => {
     const posts = await postsService.getPosts();
 
     // Then
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(httpStatusCodes.NO_CONTENT);
     expect(posts).toHaveLength(0);
 });
